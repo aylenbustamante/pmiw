@@ -36,7 +36,9 @@ function draw() {
     cargaOtraImagen(imagen[2], width / 2, height / 2, 640, 480, CENTER);
     dibujarBoton(50, 50, 100, 50);
     dibujarBoton(50, height - 100, 100, 50);
-  } else if (estado === "tercera") { // Mover "else if" aquí
+  } else if (estado === "tercera") { 
+
+  
     cargaOtraImagen(imagen[3], width / 2, height / 2, 640, 480, CENTER);
     dibujarBoton(50, 50, 100, 50);
     dibujarBoton(50, height - 100, 100, 50);
@@ -50,7 +52,7 @@ function draw() {
 function mousePressed() {
   if (estado === "inicio") {
     if (detectarBoton(50, 50, 100, 50)) {
-      estado = "primera"; // Cambia el estado y el texto ya no se muestra
+      estado = "primera"; 
     }
   } else if (estado === "primera") {
     if (detectarBoton(50, 50, 100, 50)) {
