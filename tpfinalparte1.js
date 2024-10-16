@@ -15,7 +15,11 @@ function setup() {
   }
   estado = "inicio";
 }
-
+/* 
+ for(let i=0; i<cant; i+=1){
+    text(palabras[i], i * ancho, altura[i]);
+    altura[i] = altura[i] + velocidad[i];  (usar codigo para texto, consultar como agregarlo para c/pantalla)
+*/
 function draw() {
   background(200);
 
