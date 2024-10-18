@@ -1,15 +1,19 @@
 let imagen = [];
 let Textos = [];
+let sound;
 let estado;
 let medidas;
 let botonInicio, botonSi, botonNo;
 
+
+
 function preload() {
   for (let i = 0; i < 9; i++) {
     imagen[i] = loadImage("data/imagen" + i + ".jpeg");
+      sound = loadSound("data/sound.mp3");
   }
   // Carga de textos una sola vez
-  Textos = loadStrings("texto/pikachu.txt");
+  Textos = loadStrings("data/pikachu.txt");
 }
 
 function setup() {
@@ -93,7 +97,6 @@ function draw() {
     dibujarBoton(botonNo); 
   }
 }
-
 function mostrarTexto(texto, x, y) {
   fill(255);
   textSize(20);
@@ -134,8 +137,11 @@ function mousePressed() {
       estado = "novena";
     }
   }
+  if (!sound.isPlaying()) { 
+    sound.play();
+  } else {sound.continue();
 }
-
+}
 function dibujarBoton(boton) {
   if (detectarBoton(boton)) {
     fill(0, 255, 255);
@@ -148,6 +154,11 @@ function dibujarBoton(boton) {
 function detectarBoton(boton) {
   return mouseX > boton.x && mouseX < boton.x + boton.ancho &&
          mouseY > boton.y && mouseY < boton.y + boton.alto;
+}
+
+function cargaOtraImagen(imag, medidas) {
+  imageMode(medidas.alinea); 
+  image(imag, medidas.x, medidas.y, medidas.ancho, medidas.alto);
 }
 
 function cargaOtraImagen(imag, medidas) {
