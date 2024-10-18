@@ -1,11 +1,15 @@
 let imagen = [];
-
+let Textos = [];
 let estado;
+let medidas;
+let botonInicio, botonSi, botonNo;
 
 function preload() {
   for (let i = 0; i < 9; i++) {
     imagen[i] = loadImage("data/imagen" + i + ".jpeg");
   }
+  // Carga de textos una sola vez
+  Textos = loadStrings("texto/pikachu.txt");
 }
 
 function setup() {
@@ -14,79 +18,139 @@ function setup() {
     imagen[i].resize(640, 480);
   }
   estado = "inicio";
+
+  botonInicio = {
+    x: 240,
+    y: 370,
+    ancho: 100,
+    alto: 40
+  };
+
+  botonSi = {
+    x: 50,
+    y: height - 100,
+    ancho: 100,
+    alto: 50
+  };
+
+  botonNo = {
+    x: 480,
+    y: height - 100,
+    ancho: 100,
+    alto: 50
+  };
+
+  medidas = {
+    x: width / 2,
+    y: height / 2,
+    ancho: 640,
+    alto: 480,
+    alinea: CENTER
+  };
 }
-/* 
- for(let i=0; i<cant; i+=1){
-    text(palabras[i], i * ancho, altura[i]);
-    altura[i] = altura[i] + velocidad[i];  (usar codigo para texto?, consultar como agregarlo para c/pantalla)
-*/
+
 function draw() {
   background(200);
-
-  if (estado === "inicio") {
-      cargaOtraImagen(imagen[0], width / 2, height / 2, 640, 480, CENTER);
-    dibujarBoton(50, 50, 100, 50);
-    
-    fill(255); 
-    textSize(20); 
-    textAlign(CENTER); 
-    text("En la futurista Ryme City,\ndonde humanos y Pokémon conviven,\nTim Goodman llega decidido a descubrir\nla verdad sobre la desaparición de su padre, Harry", width / 2, 120);
-
-  } else if (estado === "primera") {
-    cargaOtraImagen(imagen[1], width / 2, height / 2, 640, 480, CENTER);
-    dibujarBoton(50, 50, 100, 50);
-    dibujarBoton(50, height - 100, 100, 50);
-  } else if (estado === "segunda") {
-    cargaOtraImagen(imagen[2], width / 2, height / 2, 640, 480, CENTER);
-    dibujarBoton(50, 50, 100, 50);
-    dibujarBoton(50, height - 100, 100, 50);
-  } else if (estado === "tercera") { 
-
   
-    cargaOtraImagen(imagen[3], width / 2, height / 2, 640, 480, CENTER);
-    dibujarBoton(50, 50, 100, 50);
-    dibujarBoton(50, height - 100, 100, 50);
+  if (estado === "inicio") {
+    cargaOtraImagen(imagen[0], medidas);
+    dibujarBoton(botonInicio);
+    mostrarTexto(Textos[0], width / 2, 120);
+  } else if (estado === "primera") {
+    cargaOtraImagen(imagen[1], medidas);
+    dibujarBoton(botonInicio);
+    mostrarTexto(Textos[1], width / 2, 120); 
+  } else if (estado === "segunda") {
+    cargaOtraImagen(imagen[2], medidas);
+    dibujarBoton(botonInicio);
+    mostrarTexto(Textos[2], width / 2, 120); 
+  } else if (estado === "tercera") { 
+    cargaOtraImagen(imagen[3], medidas);
+    dibujarBoton(botonSi); 
+  } else if (estado === "cuarta") {
+    cargaOtraImagen(imagen[3], medidas);
+    dibujarBoton(botonSi); 
+    dibujarBoton(botonNo); 
+    mostrarTexto(Textos[3], width / 2, 120); 
+  } else if (estado === "quinta") {
+    cargaOtraImagen(imagen[4], medidas);
+    dibujarBoton(botonInicio);
+  } else if (estado === "sexta") {
+    cargaOtraImagen(imagen[5], medidas);
+    dibujarBoton(botonInicio);
+    mostrarTexto(Textos[4], width / 2, 120); 
+  } else if (estado === "septima") {
+    cargaOtraImagen(imagen[6], medidas);
+    dibujarBoton(botonSi); 
+    dibujarBoton(botonNo); 
+    mostrarTexto(Textos[5], width / 2, 120); 
+  } else if (estado === "octava") {
+    cargaOtraImagen(imagen[7], medidas);
+    dibujarBoton(botonSi); 
+    mostrarTexto(Textos[6], width / 2, 120); 
+  } else if (estado === "novena") {
+    cargaOtraImagen(imagen[8], medidas);
+    dibujarBoton(botonNo); 
   }
+}
 
-  fill(255, 0, 0);
-  textSize(25);
-  text(estado, 50, 450);
+function mostrarTexto(texto, x, y) {
+  fill(255);
+  textSize(20);
+  textAlign(CENTER);
+  text(texto, x, y);
 }
 
 function mousePressed() {
   if (estado === "inicio") {
-    if (detectarBoton(50, 50, 100, 50)) {
-      estado = "primera"; 
+    if (detectarBoton(botonInicio)) {
+      estado = "primera";
     }
   } else if (estado === "primera") {
-    if (detectarBoton(50, 50, 100, 50)) {
+    if (detectarBoton(botonInicio)) {
       estado = "segunda";
     }
-    if (detectarBoton(50, height - 100, 100, 50)) {
-      estado = "tercera";
+  } else if (estado === "segunda") {
+    if (detectarBoton(botonInicio)) {
+      estado = "cuarta";
+    }
+  } else if (estado === "cuarta") {
+    if (detectarBoton(botonSi)) {
+      estado = "quinta";
+    }
+  } else if (estado === "quinta") {
+    if (detectarBoton(botonInicio)) {
+      estado = "sexta";
+    }
+  } else if (estado === "sexta") {
+    if (detectarBoton(botonInicio)) {
+      estado = "septima";
+    }
+  } else if (estado === "septima") {
+    if (detectarBoton(botonSi)) {
+      estado = "octava";
+    }
+    if (detectarBoton(botonNo)) {
+      estado = "novena";
     }
   }
 }
 
-function dibujarBoton(px, py, pan, pal) {
-  if (detectarBoton(px, py, pan, pal)) {
+function dibujarBoton(boton) {
+  if (detectarBoton(boton)) {
     fill(0, 255, 255);
   } else {
     fill(0, 0, 255);
   }
-  rect(px, py, pan, pal, pal / 4);
+  rect(boton.x, boton.y, boton.ancho, boton.alto, boton.alto / 4);
 }
 
-function detectarBoton(x, y, an, al) {
-  return mouseX > x && mouseX < x + an && mouseY > y && mouseY < y + al;
+function detectarBoton(boton) {
+  return mouseX > boton.x && mouseX < boton.x + boton.ancho &&
+         mouseY > boton.y && mouseY < boton.y + boton.alto;
 }
 
-function cargaImagen(imag, index, x, y, ancho, alto, alinea) {
-  imageMode(alinea);
-  image(imag[index], x, y, ancho, alto);
-}
-
-function cargaOtraImagen(imag, x, y, ancho, alto, alinea) {
-  imageMode(alinea);
-  image(imag, x, y, ancho, alto);
+function cargaOtraImagen(imag, medidas) {
+  imageMode(medidas.alinea); 
+  image(imag, medidas.x, medidas.y, medidas.ancho, medidas.alto);
 }
