@@ -14,7 +14,7 @@ function preload() {
 
 function setup() {
   createCanvas(640, 480);
-  for (let i = 0; i < 9; i++) {
+  for (let i = 0; i < 13; i++) {
     imagen[i].resize(640, 480);
   }
   estado = 0;
