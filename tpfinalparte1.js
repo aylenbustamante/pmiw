@@ -1,4 +1,4 @@
-///Aylen Bustamante //COMISION 5 // 118978/1 
+///Aylen Bustamante //COMISION 5 // 118978/1 // Erica Ruiz Diaz, legajo: 119765/0
 // link 
 let imagen = [];
 let Textos = [];
