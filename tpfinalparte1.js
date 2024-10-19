@@ -1,3 +1,5 @@
+///Aylen Bustamante //COMISION 5 // 118978/1 
+// link 
 let imagen = [];
 let Textos = [];
 let sound;
@@ -5,7 +7,7 @@ let estado;
 let botones = {};
 
 function preload() {
-  for (let i = 0; i < 25; i++) {
+  for (let i = 0; i < 26; i++) {
     imagen[i] = loadImage("data/imagen" + i + ".jpeg");
   }
   sound = loadSound("data/sound.mp3");
@@ -15,7 +17,7 @@ function preload() {
 
 function setup() {
   createCanvas(640, 480);
-  for (let i = 0; i < 25; i++) {
+  for (let i = 0; i < 26; i++) {
     imagen[i].resize(640, 480);
   }
   estado = 0;
@@ -38,7 +40,7 @@ function draw() {
   fill(0, 0, 255); 
   textSize(20); 
   textAlign(LEFT); 
-  text("Estás en estado: " + estado, 10, 30); 
+///  text("Estás en estado: " + estado, 10, 30);   esto es para saber que pantallas estas Eri 
   
   if (estado < Textos.length && Textos[estado]) { 
     mostrarTexto(Textos[estado], width / 2, 120);
@@ -53,7 +55,7 @@ function cargarEstado(estado) {
     dibujarBoton(botones.inicio);
   }
   
-  if (estado === 1 || estado === 2 || estado == 4 ||estado === 5 || estado === 8 || estado === 9 || estado === 10 || estado === 13 || estado === 14 || estado === 15) {
+  if (estado === 1 || estado === 2 || estado == 4 ||estado === 5 || estado === 6 || estado === 8 || estado === 9 || estado === 10 || estado === 13 || estado === 14 || estado === 15 || estado === 17 || estado === 18 || estado === 19 || estado === 21 || estado === 22 || estado === 23 || estado === 24) {
     dibujarBoton(botones.siguiente);
   } 
  
@@ -65,21 +67,21 @@ function cargarEstado(estado) {
 if (estado === 3) {
   dibujarBoton(botones.si);
 }
-  if (estado === 6) {
+  if (estado === 7) {
     dibujarBoton(botones.no);
   }
   
-  if (estado === 12) {
+  if (estado === 12 || estado === 20 || estado === 25) {
     dibujarBoton(botones.reiniciar);
      }
 }
 
 function mousePressed() {
  
-   if (detectarBoton(botones.siguiente) && (estado === 0)) {
+   if (detectarBoton(botones.siguiente) && (estado === 0 || estado === 24)) {
       estado += 1; 
    }
-  else if (detectarBoton(botones.siguiente) && (estado === 1 || estado === 2 || estado === 4 || estado === 5 || estado === 8 || estado === 9 || estado === 10 || estado === 13 || estado === 14 || estado === 15 || estado === 16)) {
+  else if (detectarBoton(botones.siguiente) && (estado === 1 || estado === 2 || estado === 4 || estado === 5 || estado === 6 || estado === 8 || estado === 9 || estado === 10 || estado === 13 || estado === 14 || estado === 15 || estado === 16 || estado === 17 || estado === 18|| estado === 19 || estado === 20 || estado === 21 || estado === 22 || estado === 23 || estado === 24 || estado === 25)) {
     estado += 1; 
   } 
   
@@ -107,15 +109,23 @@ function mousePressed() {
       estado = 11;
     } else if (estado === 11) {
       estado = 12; //final 1 
+    } else if ( estado == 16) {
+      estado = 21;
     }
   }
+  
 
 
 else if(detectarBoton(botones.reiniciar)) {
   if (estado === 12) {
-    estado = 1;
+    estado -= 0;
+  } else if (estado === 20) {
+      estado -= 0;
+  } else if (estado === 25) {
+    estado -= 0;
   }
  }
+
 
 
   if (!sound.isPlaying()) {
