@@ -5,7 +5,7 @@ let estado;
 let botones = {};
 
 function preload() {
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 13; i++) {
     imagen[i] = loadImage("data/imagen" + i + ".jpeg");
   }
   sound = loadSound("data/sound.mp3");
@@ -84,7 +84,7 @@ function mousePressed() {
     } else if (estado === 6) {
       estado = 7;
     } else if (estado === 7) {
-      estado = 11;
+      estado = 13;
     }
   }
 
