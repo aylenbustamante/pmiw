@@ -4,7 +4,6 @@ let imagen = [];
 let Textos = [];
 let sound;
 let estado;
-let botones = {};
 
 function preload() {
   for (let i = 0; i < 26; i++) {
@@ -12,7 +11,7 @@ function preload() {
   }
   sound = loadSound("data/sound.mp3");
   Textos = loadStrings("data/pikachu.txt");
-  console.log(Textos.length)
+  console.log(Textos.length);
 }
 
 function setup() {
@@ -21,86 +20,62 @@ function setup() {
     imagen[i].resize(640, 480);
   }
   estado = 0;
-
-  botones = {
-    inicio: { x: 240, y: 370, ancho: 100, alto: 40, texto: "inicio" },
-    siguiente: { x: 240, y: 370, ancho: 100, alto: 40, texto: "siguiente" },
-    reiniciar: { x: 480, y: height - 100, ancho: 100, alto: 50, texto: "reiniciar"},
-    si: { x: 50, y: height - 100, ancho: 100, alto: 50, texto: "Sí" },
-    no: { x: 480, y: height - 100, ancho: 100, alto: 50, texto: "No" }
-};
 }
 
 function draw() {
   background(200);
-
   cargarEstado(estado);
 
- 
   fill(0, 0, 255); 
   textSize(20); 
   textAlign(LEFT); 
-///  text("Estás en estado: " + estado, 10, 30);   esto es para saber que pantallas estas Eri 
   
   if (estado < Textos.length && Textos[estado]) { 
     mostrarTexto(Textos[estado], width / 2, 120);
- }
+  }
 }
 
 function cargarEstado(estado) {
   cargaOtraImagen(imagen[estado], { x: width / 2, y: height / 2, ancho: 640, alto: 480, alinea: CENTER });
 
-  
   if (estado === 0) {
-    dibujarBoton(botones.inicio);
-  }
-  
-  if (estado === 1 || estado === 2 || estado == 4 ||estado === 5 || estado === 6 || estado === 8 || estado === 9 || estado === 10 || estado === 13 || estado === 14 || estado === 15 || estado === 17 || estado === 18 || estado === 19 || estado === 21 || estado === 22 || estado === 23 || estado === 24) {
-    dibujarBoton(botones.siguiente);
-  } 
- 
-  if (estado === 3 || estado === 7 || estado === 11 || estado === 16) {
-    dibujarBoton(botones.si);
-    dibujarBoton(botones.no);
+    dibujarBotonInicio();
   }
 
-if (estado === 3) {
-  dibujarBoton(botones.si);
-}
-  if (estado === 7) {
-    dibujarBoton(botones.no);
+  if (estado === 1 || estado === 2 || estado === 4 || estado === 5 || estado === 6 || estado === 8 || estado === 9 || estado === 10 || estado === 13 || estado === 14 || estado === 15 || estado === 17 || estado === 18 || estado === 19 || estado === 21 || estado === 22 || estado === 23 || estado === 24) {
+    
+    dibujarBotonSiguiente();
+  } 
+
+  if (estado === 3 || estado === 7 || estado === 11 || estado === 16) {
+    botonSi();
+    botonNo();
   }
   
   if (estado === 12 || estado === 20 || estado === 25) {
-    dibujarBoton(botones.reiniciar);
-     }
+    botonReiniciar();
+  }
 }
 
 function mousePressed() {
- 
-   if (detectarBoton(botones.siguiente) && (estado === 0 || estado === 24)) {
-      estado += 1; 
-   }
-  else if (detectarBoton(botones.siguiente) && (estado === 1 || estado === 2 || estado === 4 || estado === 5 || estado === 6 || estado === 8 || estado === 9 || estado === 10 || estado === 13 || estado === 14 || estado === 15 || estado === 16 || estado === 17 || estado === 18|| estado === 19 || estado === 20 || estado === 21 || estado === 22 || estado === 23 || estado === 24 || estado === 25)) {
+  
+  if (ClickBotonSiguiente()) {
     estado += 1; 
   } 
   
-  
-  else if (detectarBoton(botones.si)) { 
-  if (estado === 3) { 
-    estado = 4;
-  } else if (estado === 7) {
-    estado = 8; 
-  } else if (estado === 11) {
-    estado = 13;
-  } else if (estado === 16) {
-    estado = 17;
-  } 
+  if (ClickBotonSi()) {
+    if (estado === 3) {
+      estado = 4;
+    } else if (estado === 7) {
+      estado = 8; 
+    } else if (estado === 11) {
+      estado = 13;
+    } else if (estado === 16) {
+      estado = 17;
+    } 
   }
- 
-
- 
-  else if (detectarBoton(botones.no)) {
+  
+  if (ClickBotonNo()) {
     if (estado === 3) {
       estado = 6; 
     } else if (estado === 6) {
@@ -108,25 +83,16 @@ function mousePressed() {
     } else if (estado === 7) {
       estado = 11;
     } else if (estado === 11) {
-      estado = 12; //final 1 
-    } else if ( estado == 16) {
+      estado = 12; // final 1 
+    } else if (estado === 16) {
       estado = 21;
     }
   }
+
   
-
-
-else if(detectarBoton(botones.reiniciar)) {
-  if (estado === 12) {
-    estado -= 0;
-  } else if (estado === 20) {
-      estado -= 0;
-  } else if (estado === 25) {
-    estado -= 0;
+  if (detectarBotonReiniciar()) {
+    estado = 0;  
   }
- }
-
-
 
   if (!sound.isPlaying()) {
     sound.play(); 
@@ -153,24 +119,112 @@ function mostrarTexto(texto, x, y) {
   text(texto, a, b, limiteTexto);
 }
 
+function dibujarBotonInicio() {
+  let x = 240;
+  let y = 320;
+  let ancho = 100;
+  let alto = 40;
 
-function dibujarBoton(boton) {
-  
-  if (detectarBoton(boton)) {
-    fill(0, 255, 255); 
-  } else {
-    fill(0, 0, 255);
-  }
-  
-
-  rect(boton.x, boton.y, boton.ancho, boton.alto, boton.alto / 4);
-  
-
- fill(255); 
-  textSize(18); 
-  text(boton.texto, boton.x + boton.ancho / 2, boton.y + boton.alto / 2);
+ fill(0, 0, 255); 
+  rect(x, y, ancho, alto, alto / 4);  
+  fill(255); 
+  textSize(20); 
+  text('inicio', x + ancho / 2, y + alto / 2); 
 }
-function detectarBoton(boton) {
-  return mouseX > boton.x && mouseX < boton.x + boton.ancho &&
-         mouseY > boton.y && mouseY < boton.y + boton.alto;
+
+function dibujarBotonSiguiente() {
+  let x = 240;
+  let y = 320;
+  let ancho = 100;
+  let alto = 40;
+
+  fill(0, 0, 255); 
+  rect(x, y, ancho, alto, alto / 4);  
+  fill(255); 
+  textSize(20); 
+  text('Siguiente', x + ancho / 2, y + alto / 2); 
+}
+
+function botonSi() {
+  let x = 50;
+  let y = height - 100;
+  let ancho = 100;
+  let alto = 50;
+
+  fill(0, 0, 255);  
+  rect(x, y, ancho, alto, alto / 4);  
+  fill(255);
+  textSize(20);  
+  text('Sí', x + ancho / 2, y + alto / 2); 
+}
+
+function botonNo() {
+  let x = 480;
+  let y = height - 100;
+  let ancho = 100;
+  let alto = 50;
+
+  fill(0, 0, 255); 
+  rect(x, y, ancho, alto, alto / 4);  
+  fill(255);
+  textSize(20);  
+  text('No', x + ancho / 2, y + alto / 2); 
+}
+
+function ClickBotonSi() {
+  let x = 50;
+  let y = height - 100;
+  let ancho = 100;
+  let alto = 50;
+
+  return mouseX > x && mouseX < x + ancho &&
+         mouseY > y && mouseY < y + alto;
+}
+
+function ClickBotonNo() {
+  let x = 480;
+  let y = height - 100;
+  let ancho = 100;
+  let alto = 50;
+
+  return mouseX > x && mouseX < x + ancho &&
+         mouseY > y && mouseY < y + alto;
+}
+
+function botonReiniciar() {
+  let x = 380;
+  let y = height - 100;
+  let ancho = 100;
+  let alto = 50;
+
+  fill(250, 0, 0);  
+  rect(x, y, ancho, alto, alto / 4);  
+  fill(255);  
+  textSize(20); 
+  text('Reiniciar', x + ancho / 2, y + alto / 2); 
+
+  if (mouseX > x && mouseX < x + ancho && mouseY > y && mouseY < y + alto && mouseIsPressed) {
+    estado = 0;  
+  }
+}
+
+
+function ClickBotonSiguiente() {
+  let x = 240;
+  let y = 320;
+  let ancho = 100;
+  let alto = 40;
+
+  return mouseX > x && mouseX < x + ancho &&
+         mouseY > y && mouseY < y + alto;
+}
+
+function ClickBotonReiniciar() {
+  let x = 380;
+  let y = height - 100;
+  let ancho = 100;
+  let alto = 50;
+
+  return mouseX > x && mouseX < x + ancho &&
+         mouseY > y && mouseY < y + alto;
 }
