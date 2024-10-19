@@ -1,4 +1,4 @@
-///Aylen Bustamante //COMISION 5 // 118978/1 
+///Aylen Bustamante 118978/1  // COMISION 5 // Erica Ruiz Diaz 119765/0
 // link 
 let imagen = [];
 let Textos = [];
@@ -6,7 +6,7 @@ let sound;
 let estado;
 
 function preload() {
-  for (let i = 0; i < 26; i++) {
+  for (let i = 0; i < 27; i++) {
     imagen[i] = loadImage("data/imagen" + i + ".jpeg");
   }
   sound = loadSound("data/sound.mp3");
@@ -16,7 +16,7 @@ function preload() {
 
 function setup() {
   createCanvas(640, 480);
-  for (let i = 0; i < 26; i++) {
+  for (let i = 0; i < 27; i++) {
     imagen[i].resize(640, 480);
   }
   estado = 0;
@@ -52,10 +52,15 @@ function cargarEstado(estado) {
     botonNo();
   }
   
-  if (estado === 12 || estado === 20 || estado === 25) {
+  if (estado === 12 || estado === 20 || estado === 25 || estado === 26) {
     botonReiniciar();
   }
+
+ if (estado === 0 || estado === 26){
+    BotonCreditos();
+  }
 }
+
 
 function mousePressed() {
   
@@ -224,6 +229,31 @@ function ClickBotonReiniciar() {
   let y = height - 100;
   let ancho = 100;
   let alto = 50;
+
+  return mouseX > x && mouseX < x + ancho &&
+         mouseY > y && mouseY < y + alto;
+}
+function BotonCreditos() {
+ let x = 240;
+  let y = 410;
+  let ancho = 100;
+  let alto = 40;
+
+ fill(255, 105, 180) 
+  rect(x, y, ancho, alto, alto / 4);  
+  fill(255);  
+  textSize(20); 
+  text('creditos', x + ancho / 2, y + alto / 2); 
+
+  if (mouseX > x && mouseX < x + ancho && mouseY > y && mouseY < y + alto && mouseIsPressed) {
+    estado = 26;  
+  }
+}
+function ClickBotonCreditos() {
+ let x = 240;
+  let y = 410;
+  let ancho = 100;
+  let alto = 40;
 
   return mouseX > x && mouseX < x + ancho &&
          mouseY > y && mouseY < y + alto;
