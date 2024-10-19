@@ -84,7 +84,7 @@ function mousePressed() {
     } else if (estado === 6) {
       estado = 7;
     } else if (estado === 7) {
-      estado = 13;
+      estado = 11;
     }
   }
 
